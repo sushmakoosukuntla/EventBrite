@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{4D026D70-1763-42B0-A08A-7F3906A2C0FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{66AF0013-1D77-480E-8585-0568F6C33B9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{876808A4-09A2-44CE-A6A7-0B54311E4DAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCatalogApi", "EventCatalogApi\EventCatalogApi.csproj", "{437BF89C-2F7C-4305-B014-15F044B2782B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{437BF89C-2F7C-4305-B014-15F044B2782B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{437BF89C-2F7C-4305-B014-15F044B2782B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{437BF89C-2F7C-4305-B014-15F044B2782B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{437BF89C-2F7C-4305-B014-15F044B2782B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{66AF0013-1D77-480E-8585-0568F6C33B9B} = {4D026D70-1763-42B0-A08A-7F3906A2C0FB}
+		{876808A4-09A2-44CE-A6A7-0B54311E4DAE} = {4D026D70-1763-42B0-A08A-7F3906A2C0FB}
+		{437BF89C-2F7C-4305-B014-15F044B2782B} = {66AF0013-1D77-480E-8585-0568F6C33B9B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E6923F9-3632-441D-B658-4B0A37705FB5}
+	EndGlobalSection
+EndGlobal
