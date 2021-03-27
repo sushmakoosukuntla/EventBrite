@@ -58,7 +58,7 @@ namespace EventCatalogApi.Data
             modelBuilder.Entity<EventCategory>(e =>
             {
                 //In the below line we are telling that Brand is required.
-                e.Property(c => c.Catagory).IsRequired().HasMaxLength(100);
+                e.Property(c => c.Category).IsRequired().HasMaxLength(100);
                 e.Property(c => c.Id).IsRequired().ValueGeneratedOnAdd();
 
             });//EventCatagory Table
