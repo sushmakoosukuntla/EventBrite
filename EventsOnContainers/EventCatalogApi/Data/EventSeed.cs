@@ -55,6 +55,31 @@ namespace EventCatalogApi.Data
             }
         }
 
+        private static IEnumerable<EventItem> GetEvents()
+        {
+            return new List<EventItem>
+            {
+
+           
+            new EventItem { EventCatagoryId = 1, EventTypeId = 1, EventAddressId = 4, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let's have our tummy full", EventName = "Eat and Eat", Price = 20.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/1" },
+            new EventItem { EventCatagoryId = 1, EventTypeId = 2, EventAddressId = 1, EventOraganizerId = 2, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us Dance, Hurrayy", EventName = "Dance on floor", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/2" },
+            new EventItem { EventCatagoryId = 3, EventTypeId = 7, EventAddressId = 1, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us meet, its long time", EventName = "Reunion", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/3" },
+            new EventItem { EventCatagoryId = 2, EventTypeId = 4, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Full STack Development", EventName = "Full Stack Basics", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/4" },
+            new EventItem { EventCatagoryId = 2, EventTypeId = 3, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Java Webinar", EventName = "Learn by hearing", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/5" },
+            new EventItem { EventCatagoryId = 4, EventTypeId = 9, EventAddressId = 3, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "let us busy up the Street", EventName = "Dance on Street Roads", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/6" },
+            new EventItem { EventCatagoryId = 2, EventTypeId = 5, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us meet, Interact and Learn", EventName = "Interaction", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/7" },
+            new EventItem { EventCatagoryId = 2, EventTypeId = 6, EventAddressId = 3, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "let us together clim the Mountain", EventName = "Summit Hike", Price = 25.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/8" },
+            new EventItem { EventCatagoryId = 4, EventTypeId = 11, EventAddressId = 4, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let's be Clean and Healthy", EventName = "Clean and Green", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/9" },           
+            new EventItem { EventCatagoryId = 3, EventTypeId = 8, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us save Elephants", EventName = "Elephant Themed Party", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/10" },
+            new EventItem { EventCatagoryId = 4, EventTypeId = 10, EventAddressId = 4, EventOraganizerId = 2, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Instant shopping", EventName = "Swap shop", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/11" },
+            new EventItem { EventCatagoryId = 3, EventTypeId = 7, EventAddressId = 3, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "School Friends are the best", EventName = "Friends reunion", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/12" },
+            new EventItem { EventCatagoryId = 2, EventTypeId = 3, EventAddressId = 4, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Empowering women is important", EventName = "Women Empowerment", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/13" },
+            new EventItem { EventCatagoryId = 3, EventTypeId = 8, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Lets meet befor you tie the knot", EventName = "Bachelorite party", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/14" },
+            new EventItem { EventCatagoryId = 1, EventTypeId = 2, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Lord Ganesha is the Epitome", EventName = "Ganesh Festival", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/15" },
+            
+            };
+        }
+
         private static IEnumerable<EventOrganizer> GetEventOrganizers()
         {
             return new List<EventOrganizer>
