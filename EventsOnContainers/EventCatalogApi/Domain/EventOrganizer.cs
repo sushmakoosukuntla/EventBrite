@@ -8,7 +8,7 @@ namespace EventCatalogApi.Domain
     public class EventOrganizer
     {
         public int Id { get; set; }
-        public string Coordinator { get; set; }
-        public string Title { get; set; }
+        public string Coordinator { get; set; }        
+        public string ContactNumber { get; set; }//Choosen type string because contact number has "-" and "+"
     }
 }

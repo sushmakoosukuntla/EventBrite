@@ -99,7 +99,8 @@ namespace EventCatalogApi.Data
             modelBuilder.Entity<EventOrganizer>(e =>
             {
                 e.Property(o => o.Id).IsRequired().ValueGeneratedOnAdd();
-                e.Property(o => o.Coordinator).IsRequired().HasMaxLength(100);                
+                e.Property(o => o.Coordinator).IsRequired().HasMaxLength(100);
+                e.Property(o => o.ContactNumber).IsRequired().HasMaxLength(50);
             }); //EventOrganizerTable
         }
     }

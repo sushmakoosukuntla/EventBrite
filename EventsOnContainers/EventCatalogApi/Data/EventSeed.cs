@@ -1,4 +1,5 @@
 ﻿using EventCatalogApi.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,13 @@ namespace EventCatalogApi.Data
     {
         public static void Seed(EventContext eventContext)
         {
+            /*In order to migrate, Entityframe work requires the translated version of catalog context, To do that
+            View => otherwindows => Package Manager console, this is powershell window whhere we can run powershell
+            commands nothing but c# commands.*/
+            //Then type Add-Migration Initial(For Initial migration)
+            //What does Migrate do?? If we dont migrate, the tables will not get created in the database.
+            eventContext.Database.Migrate();
+
             //we are checking whether the database is created or not in the below line.
             //catalogContext.Database.EnsureCreated();
             //Below Line checks the database, if it has any rows
@@ -61,21 +69,21 @@ namespace EventCatalogApi.Data
             {
 
            
-            new EventItem { EventCatagoryId = 1, EventTypeId = 1, EventAddressId = 4, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let's have our tummy full", EventName = "Eat and Eat", Price = 20.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/1" },
-            new EventItem { EventCatagoryId = 1, EventTypeId = 2, EventAddressId = 1, EventOraganizerId = 2, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us Dance, Hurrayy", EventName = "Dance on floor", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/2" },
-            new EventItem { EventCatagoryId = 3, EventTypeId = 7, EventAddressId = 1, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us meet, its long time", EventName = "Reunion", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/3" },
-            new EventItem { EventCatagoryId = 2, EventTypeId = 4, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Full STack Development", EventName = "Full Stack Basics", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/4" },
-            new EventItem { EventCatagoryId = 2, EventTypeId = 3, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Java Webinar", EventName = "Learn by hearing", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/5" },
-            new EventItem { EventCatagoryId = 4, EventTypeId = 9, EventAddressId = 3, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "let us busy up the Street", EventName = "Dance on Street Roads", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/6" },
-            new EventItem { EventCatagoryId = 2, EventTypeId = 5, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us meet, Interact and Learn", EventName = "Interaction", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/7" },
-            new EventItem { EventCatagoryId = 2, EventTypeId = 6, EventAddressId = 3, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "let us together clim the Mountain", EventName = "Summit Hike", Price = 25.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/8" },
-            new EventItem { EventCatagoryId = 4, EventTypeId = 11, EventAddressId = 4, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let's be Clean and Healthy", EventName = "Clean and Green", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/9" },           
-            new EventItem { EventCatagoryId = 3, EventTypeId = 8, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us save Elephants", EventName = "Elephant Themed Party", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/10" },
-            new EventItem { EventCatagoryId = 4, EventTypeId = 10, EventAddressId = 4, EventOraganizerId = 2, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Instant shopping", EventName = "Swap shop", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/11" },
-            new EventItem { EventCatagoryId = 3, EventTypeId = 7, EventAddressId = 3, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "School Friends are the best", EventName = "Friends reunion", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/12" },
-            new EventItem { EventCatagoryId = 2, EventTypeId = 3, EventAddressId = 4, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Empowering women is important", EventName = "Women Empowerment", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/13" },
-            new EventItem { EventCatagoryId = 3, EventTypeId = 8, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Lets meet befor you tie the knot", EventName = "Bachelorite party", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/14" },
-            new EventItem { EventCatagoryId = 1, EventTypeId = 2, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Lord Ganesha is the Epitome", EventName = "Ganesh Festival", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/15" },
+            new EventItem { EventCatagoryId = 1, EventTypeId = 2, EventAddressId = 4, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let's have our tummy full", EventName = "Eat and Eat", Price = 20.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/1" },
+            new EventItem { EventCatagoryId = 2, EventTypeId = 2, EventAddressId = 1, EventOraganizerId = 2, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us Dance, Hurrayy", EventName = "Dance on floor", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/2" },
+            new EventItem { EventCatagoryId = 7, EventTypeId = 1, EventAddressId = 1, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us meet, its long time", EventName = "Reunion", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/3" },
+            new EventItem { EventCatagoryId = 4, EventTypeId = 1, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Full STack Development", EventName = "Full Stack Basics", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/4" },
+            new EventItem { EventCatagoryId = 3, EventTypeId = 3, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Java Webinar", EventName = "Learn by hearing", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/5" },
+            new EventItem { EventCatagoryId = 9, EventTypeId = 1, EventAddressId = 3, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "let us busy up the Street", EventName = "Dance on Street Roads", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/6" },
+            new EventItem { EventCatagoryId = 5, EventTypeId = 1, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us meet, Interact and Learn", EventName = "Interaction", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/7" },
+            new EventItem { EventCatagoryId = 6, EventTypeId = 3, EventAddressId = 3, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "let us together clim the Mountain", EventName = "Summit Hike", Price = 25.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/8" },
+            new EventItem { EventCatagoryId = 11, EventTypeId = 2, EventAddressId = 4, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let's be Clean and Healthy", EventName = "Clean and Green", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/9" },           
+            new EventItem { EventCatagoryId = 8, EventTypeId = 2, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Let us save Elephants", EventName = "Elephant Themed Party", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/10" },
+            new EventItem { EventCatagoryId = 10, EventTypeId = 2, EventAddressId = 4, EventOraganizerId = 2, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Instant shopping", EventName = "Swap shop", Price = 0.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/11" },
+            new EventItem { EventCatagoryId = 7, EventTypeId = 2, EventAddressId = 3, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "School Friends are the best", EventName = "Friends reunion", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/12" },
+            new EventItem { EventCatagoryId = 3, EventTypeId = 1, EventAddressId = 4, EventOraganizerId = 3, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Empowering women is important", EventName = "Women Empowerment", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/13" },
+            new EventItem { EventCatagoryId = 8, EventTypeId = 2, EventAddressId = 5, EventOraganizerId = 1, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Lets meet befor you tie the knot", EventName = "Bachelorite party", Price = 15.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/14" },
+            new EventItem { EventCatagoryId = 2, EventTypeId = 3, EventAddressId = 2, EventOraganizerId = 4, EventStartTime = DateTime.Now, EventEndTime = DateTime.Now.AddMinutes(60), Description = "Lord Ganesha is the Epitome", EventName = "Ganesh Festival", Price = 10.0f, PictureUrl = "http://externalcatalogbaseurltobereplaced/api/Image/15" },
             
             };
         }
@@ -86,23 +94,23 @@ namespace EventCatalogApi.Data
             {
                 new EventOrganizer
                 {
-                    Coordinator = "James", Title = "Eat, Sing and Dance"
+                    Coordinator = "James", ContactNumber = "+1 415-630-1231"
                 },
 
                 new EventOrganizer
                 {
-                    Coordinator = "Sushma", Title ="Gain Knowledge"
+                    Coordinator = "Sushma", ContactNumber = "+1 418-645-1236"
                 },
 
                 new EventOrganizer
                 {
-                    Coordinator = "Rudra", Title = "Socialize"
+                    Coordinator = "Rudra", ContactNumber = "+1 415-530-1244"
 
                 },
 
                 new EventOrganizer
                 {
-                    Coordinator ="Kiran", Title = "Our Community Party"
+                    Coordinator ="Kiran", ContactNumber = "+1 415-638-1321"
                 }               
             };
         }
@@ -151,72 +159,68 @@ namespace EventCatalogApi.Data
             return new List<EventType>
             {
                 new EventType
-                {
-                    Type ="Food festivals"
+                { 
+                    Type = "Online"
                 },
                 new EventType
                 {
-                    Type ="Music Festival"
+                    Type = "In Person"
                 },
                 new EventType
                 {
-                    Type = "Webinars"
-                },
-                new EventType
-                {
-                    Type ="Classes"
-                },
-                new EventType
-                {
-                    Type ="Interactive Performances"
-                },
-                new EventType
-                {
-                    Type ="Summits"
-                },
-                new EventType
-                {
-                    Type ="Reunions"
-                },
-                new EventType
-                {
-                    Type ="Themed Parties"
-                },
-                new EventType
-                {
-                    Type ="Street parties"
-                },
-                new EventType
-                {
-                    Type ="Swap Shops"
-                },
-                new EventType
-                {
-                    Type ="Litter picking and more"
-                },
+                    Type = "Online & In Person"
+                },               
             };
         }
 
         private static IEnumerable<EventCategory> GetEventCategories()
         {
             return new List<EventCategory>
-            {
+            {               
                 new EventCategory
                 {
-                    Category = "Festivals"
+                    Category ="Food festivals"
                 },
                 new EventCategory
                 {
-                    Category = "Virtual Events"
+                    Category ="Music Festival"
                 },
                 new EventCategory
                 {
-                    Category = "Social Events"
+                    Category = "Webinars"
                 },
                 new EventCategory
                 {
-                    Category = "Community events"
-                }
+                    Category ="Classes"
+                },
+                new EventCategory
+                {
+                    Category ="Interactive Performances"
+                },
+                new EventCategory
+                {
+                    Category ="Summits"
+                },
+                new EventCategory
+                {
+                    Category ="Reunions"
+                },
+                new EventCategory
+                {
+                    Category ="Themed Parties"
+                },
+                new EventCategory
+                {
+                    Category ="Street parties"
+                },
+                new EventCategory
+                {
+                    Category ="Swap Shops"
+                },
+                new EventCategory
+                {
+                    Category ="Litter picking and more"
+                },
             };
         }
     }
