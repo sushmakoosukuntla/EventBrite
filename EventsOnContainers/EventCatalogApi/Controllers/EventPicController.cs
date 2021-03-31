@@ -21,7 +21,7 @@ namespace EventCatalogApi.Controllers
         }
         /*How does this route Route = http://domainName/api/pic know to come to this below method? We have Individual
          route on each method, that can tell you how to get to that method.*/
-        [HttpGet("getImage/{id}")]
+        [HttpGet("{id}")]
         //Curly brackets are used to bind to the parameters. {id} is binding to  GetImage(int id)
         //This is my personal project
         public IActionResult GetImage(int id)
