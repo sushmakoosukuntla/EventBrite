@@ -23,6 +23,7 @@ namespace EventCatalogApi.Controllers
          route on each method, that can tell you how to get to that method.*/
         [HttpGet("getImage/{id}")]
         //Curly brackets are used to bind to the parameters. {id} is binding to  GetImage(int id)
+        //This is my personal project
         public IActionResult GetImage(int id)
         {
             var webRoot = _env.WebRootPath;//gives the absolute path to the directory.
