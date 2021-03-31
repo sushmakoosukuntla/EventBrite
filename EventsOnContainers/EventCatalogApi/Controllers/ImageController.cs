@@ -11,11 +11,11 @@ namespace EventCatalogApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EventPicController : ControllerBase
+    public class ImageController : ControllerBase
     {
         private readonly IWebHostEnvironment _env; //is a global variable
         //Injecting(IIs Express will Inject) the initial path from virtual machine
-        public EventPicController(IWebHostEnvironment env)
+        public ImageController(IWebHostEnvironment env)
         {
             _env = env;
         }
