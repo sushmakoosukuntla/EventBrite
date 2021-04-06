@@ -46,7 +46,7 @@ namespace EventCatalogApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("EventCatalogApi.Domain.EventCategory", b =>

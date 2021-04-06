@@ -30,8 +30,12 @@ namespace EventCatalogApi
             services.AddControllers();
             //Here is where we bring in the connection strings and inject in to the database.
             /*We created a variable called connectionString and Read my ConnectionString from Configuration file.*/
-            var connectionString = Configuration["ConnectionString"];
-
+            //var connectionString = Configuration["ConnectionString"]; //This connection string is for IIS Express
+            var databaseServer = Configuration["DatabaseServer"];
+            var databaseName = Configuration["DatabaseName"];
+            var databaseUser = Configuration["DatabaseUser"];
+            var databasePassword = Configuration["DatabasePassword"];
+            var connectionString = $"Server={databaseServer};Database={databaseName};User Id={databaseUser};Password={databasePassword}";
             //Now we have to inject this connection to the DB context.
             /*We are saying to services that, Hey services AddDbContext to my project, Which means, my project
             requires you to set up a DB context CatalogContext*/

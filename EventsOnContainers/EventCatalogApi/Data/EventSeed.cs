@@ -41,9 +41,9 @@ namespace EventCatalogApi.Data
                 eventContext.SaveChanges();
             }
 
-            if (!eventContext.Address.Any()) //EventAddress Table
+            if (!eventContext.Addresses.Any()) //EventAddress Table
             {
-                eventContext.Address.AddRange(GetAddress());
+                eventContext.Addresses.AddRange(GetAddress());
                 //Until We save changes, it will not commit or create table.
                 eventContext.SaveChanges();
             }

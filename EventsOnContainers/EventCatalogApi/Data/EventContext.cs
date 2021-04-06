@@ -35,7 +35,7 @@ namespace EventCatalogApi.Data
          * and i want to name the table as EventTypes and so on for other tables*/
         public DbSet<EventType> EventTypes { get; set; }
         public DbSet<EventCategory> CategoryTypes { get; set; }
-        public DbSet<EventAddress> Address { get; set; }
+        public DbSet<EventAddress> Addresses { get; set; }
         public DbSet<EventItem> EventItems { get; set; }
         public DbSet<EventOrganizer> Organizers { get; set; }
 

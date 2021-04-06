@@ -8,7 +8,7 @@ namespace EventCatalogApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Addresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -20,7 +20,7 @@ namespace EventCatalogApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,9 +84,9 @@ namespace EventCatalogApi.Migrations
                 {
                     table.PrimaryKey("PK_EventItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EventItems_Address_EventAddressId",
+                        name: "FK_EventItems_Addresses_EventAddressId",
                         column: x => x.EventAddressId,
-                        principalTable: "Address",
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -136,7 +136,7 @@ namespace EventCatalogApi.Migrations
                 name: "EventItems");
 
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "CategoryTypes");
