@@ -121,35 +121,35 @@ namespace EventCatalogApi.Data
             {
                 new EventAddress
                 {
-                    City = " Woodinville", State = "WA ", ZipCode =98055  , StreetAddress = " 12345 SE 100th Eve"
+                    City = "Woodinville", State = "WA", ZipCode =98055  , StreetAddress = "12345 SE 100th Eve"
                 },
                 new EventAddress
                 {
-                    City = " Redmond", State = "WA ", ZipCode =98011  , StreetAddress = " 12463 NE 109th Eve"
+                    City = "Redmond", State = "WA", ZipCode =98011  , StreetAddress = "12463 NE 109th Eve"
                 },
                 new EventAddress
                 {
-                    City = " Bellevue", State = "WA ", ZipCode =98076  , StreetAddress = " 12100 SE 201st way"
+                    City = "Bellevue", State = "WA", ZipCode =98076  , StreetAddress = "12100 SE 201st way"
                 },
                 new EventAddress
                 {
-                    City = " Seattle", State = "WA ", ZipCode =98030  , StreetAddress = " 12302 SE 108th Eve"
+                    City = "Seattle", State = "WA", ZipCode =98030  , StreetAddress = "12302 SE 108th Eve"
                 },
                 new EventAddress
                 {
-                    City = " Renton", State = "WA ", ZipCode =98044  , StreetAddress = " 12903 SE 202nd way"
+                    City = "Renton", State = "WA", ZipCode =98044  , StreetAddress = "12903 SE 202nd way"
                 },
                 new EventAddress
                 {
-                    City = " Bellevue", State = "WA ", ZipCode =98046  , StreetAddress = " 12908 NE 102nd way"
+                    City = "Bellevue", State = "WA", ZipCode =98046  , StreetAddress = "12908 NE 102nd way"
                 },
                 new EventAddress
                 {
-                    City = " Sammamish", State = "WA ", ZipCode =98350  , StreetAddress = " 12803 SE 113th St"
+                    City = "Sammamish", State = "WA", ZipCode =98350  , StreetAddress = "12803 SE 113th St"
                 },
                 new EventAddress
                 {
-                    City = " Seattle", State = "WA ", ZipCode =98121  , StreetAddress = " 12460 NE 106th way"
+                    City = "Seattle", State = "WA", ZipCode =98121  , StreetAddress = "12460 NE 106th way"
                 }
             };
         } 

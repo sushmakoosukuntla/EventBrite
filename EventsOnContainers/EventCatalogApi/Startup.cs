@@ -31,11 +31,11 @@ namespace EventCatalogApi
             //Here is where we bring in the connection strings and inject in to the database.
             /*We created a variable called connectionString and Read my ConnectionString from Configuration file.*/
             //var connectionString = Configuration["ConnectionString"]; //This connection string is for IIS Express
-            var databaseServer = Configuration["DatabaseServer"];
-            var databaseName = Configuration["DatabaseName"];
-            var databaseUser = Configuration["DatabaseUser"];
-            var databasePassword = Configuration["DatabasePassword"];
-            var connectionString = $"Server={databaseServer};Database={databaseName};User Id={databaseUser};Password={databasePassword}";
+            var DatabaseServer = Configuration["DatabaseServer"];
+            var DatabaseName = Configuration["DatabaseName"];
+            var DatabaseUser = Configuration["DatabaseUser"];
+            var DatabasePassword = Configuration["DatabasePassword"];
+            var connectionString = $"Server={DatabaseServer};Database={DatabaseName};User Id={DatabaseUser};Password={DatabasePassword}";
             //Now we have to inject this connection to the DB context.
             /*We are saying to services that, Hey services AddDbContext to my project, Which means, my project
             requires you to set up a DB context CatalogContext*/
@@ -43,7 +43,7 @@ namespace EventCatalogApi
             /*options => options.UseSqlServer(), we are telling what kind of database we are using,
             which is sql server here and we are providing connection strings as a parameter. This is how we 
             officialy injected the database */
-            services.AddDbContext<EventContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<EventContext>(options => options.UseSqlServer(connectionString), ServiceLifetime.Transient);
 
             //Now second part is we need to seed the data. We are not seeding the data here.
             //Right after database setup, seeding the data is not a good process. 
@@ -58,7 +58,7 @@ namespace EventCatalogApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+     //       app.UseHttpsRedirection();
 
             app.UseRouting();
 

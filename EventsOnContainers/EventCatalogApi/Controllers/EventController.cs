@@ -1,5 +1,7 @@
 ﻿using EventCatalogApi.Data;
 using EventCatalogApi.Domain;
+using EventCatalogApi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,13 +39,21 @@ namespace EventCatalogApi.Controllers
             [FromQuery] int pageIndex = 0,
             [FromQuery] int pageSize = 6)
         {
+            var eventItemsCount = _context.EventItems.LongCountAsync();
             //Anytime we need to query the database table, we need to do it through Entity framework.
             var items = await _context.EventItems.
-                OrderBy(c => c.EventName)
+                OrderBy(c => c.EventStartTime.Date)
                 .Skip(pageIndex * pageSize).
                 Take(pageSize).ToListAsync();
             items = ChangePictureUrl(items);
-            return Ok(items);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = items.Count,
+                Count = eventItemsCount.Result, 
+                Data = items
+            };
+            return Ok(model);
         }
 
         //************************************************************************************************
@@ -73,7 +83,7 @@ namespace EventCatalogApi.Controllers
                 query = query.Where(c => c.EventCatagoryId == eventCategoryId);
             }
 
-
+            var eventItemsCount = query.LongCountAsync();
             var events = await query
 
                     .OrderBy(c => c.Id)
@@ -81,8 +91,14 @@ namespace EventCatalogApi.Controllers
                     .Take(pageSize)
                     .ToListAsync();
             events = ChangePictureUrl(events);
-
-            return Ok(events);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = events.Count,
+                Count = eventItemsCount.Result,
+                Data = events
+            };
+            return Ok(model);            
         }
 
         //*******************************************************************************************************
@@ -112,7 +128,7 @@ namespace EventCatalogApi.Controllers
                 query = query.Where(c => c.EventTypeId == eventTypeId);
             }
 
-
+            var eventItemsCount = query.LongCountAsync();
             var events = await query
 
                     .OrderBy(c => c.Id)
@@ -120,8 +136,15 @@ namespace EventCatalogApi.Controllers
                     .Take(pageSize)
                     .ToListAsync();
             events = ChangePictureUrl(events);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = events.Count,
+                Count = eventItemsCount.Result,
+                Data = events
+            };
 
-            return Ok(events);
+            return Ok(model);
         }
 
         //*****************************************************************************************************
@@ -142,31 +165,46 @@ namespace EventCatalogApi.Controllers
            [FromQuery] int pageSize = 4)
 
         {
+            
             if (city != null && city.Length != 0)
             {
-                var items = await _context.EventItems.Join(_context.Addresses.Where(x => x.City.Equals(city)), eventItem => eventItem.EventAddressId,
-              address => address.Id, (eventItem, address) => new
-              {
+                var query = from eventItem in _context.EventItems
+                            join address in _context.Addresses
+                            on eventItem.EventAddressId equals address.Id
+                            where address.City == city
 
-                  eventId = eventItem.Id,
-                  address = eventItem.EventItemAddress,
-                  eventName = eventItem.EventName,
-                  description = eventItem.Description,
-                  price = eventItem.Price,
-                  eventImage = eventItem.PictureUrl.Replace("http://externalcatalogbaseurltobereplaced",
+                select new EventItem 
+                {
+                    Id = eventItem.Id,
+                    EventItemAddress = eventItem.EventItemAddress,
+                    EventName = eventItem.EventName,
+                    Description = eventItem.Description,
+                    Price = eventItem.Price,
+                    PictureUrl = eventItem.PictureUrl.Replace("http://externalcatalogbaseurltobereplaced",
                     _config["ExternalCatalogBaseUrl"]),
-                  startTime = eventItem.EventStartTime,
-                  endTime = eventItem.EventEndTime,
-                  typeId = eventItem.EventTypeId,
-                  categoryId = eventItem.EventCatagoryId
-              }).OrderBy(c => c.eventId)
-                    .Skip(pageIndex * pageSize)
-                    .Take(pageSize).ToListAsync();
-                return Ok(items);
+                    EventStartTime = eventItem.EventStartTime,
+                    EventEndTime = eventItem.EventEndTime,
+                    EventTypeId = eventItem.EventTypeId,
+                    EventCatagoryId = eventItem.EventCatagoryId
+
+
+                };
+                var eventItemsCount = query.LongCountAsync();
+                var events = await query
+
+                        .OrderBy(c => c.Id)
+                        .Skip(pageIndex * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                var model = new PaginatedItemsViewModel<EventItem>
+                {
+                    PageIndex = pageIndex,
+                    PageSize = events.Count,
+                    Count = eventItemsCount.Result,
+                    Data = events
+                };
+                return Ok(model);
             }
-
-
-
             return Ok();
         }
 
@@ -181,7 +219,7 @@ namespace EventCatalogApi.Controllers
             return Ok(organizers);
         }
 
-        //Addresses Filter
+        //Organizer filter Filter
         [HttpGet("[action]/{CoordinatorName}")]
         public async Task<IActionResult> Organizers(
             string CoordinatorName,
@@ -191,71 +229,82 @@ namespace EventCatalogApi.Controllers
         {
             if (CoordinatorName != null && CoordinatorName.Length != 0)
             {
-                var items = await _context.EventItems.Join(_context.Organizers.Where(x => x.Coordinator.Equals(CoordinatorName)), eventItem => eventItem.EventOraganizerId,
-              organizer => organizer.Id, (eventItem, oraganizer) => new
-              {
+                var query = from eventItem in _context.EventItems
+                            join coordinator in _context.Organizers
+                            on eventItem.EventOraganizerId equals coordinator.Id
+                            where coordinator.Coordinator == CoordinatorName
 
-                  eventId = eventItem.Id,
-                  eventOrganizer = eventItem.EventItemOraganizer,
-                  address = eventItem.EventItemAddress,
-                  eventName = eventItem.EventName,
-                  description = eventItem.Description,
-                  price = eventItem.Price,
-                  eventImage = eventItem.PictureUrl.Replace("http://externalcatalogbaseurltobereplaced",
-                    _config["ExternalCatalogBaseUrl"]),
-                  startTime = eventItem.EventStartTime,
-                  endTime = eventItem.EventEndTime,
-                  typeId = eventItem.EventTypeId,
-                  categoryId = eventItem.EventCatagoryId
-              }).OrderBy(c => c.eventId)
-                    .Skip(pageIndex * pageSize)
-                    .Take(pageSize).ToListAsync();
-                return Ok(items);
+                            select new EventItem
+                            {
+                                Id = eventItem.Id,
+                                EventItemAddress = eventItem.EventItemAddress,
+                                EventName = eventItem.EventName,
+                                Description = eventItem.Description,
+                                Price = eventItem.Price,
+                                PictureUrl = eventItem.PictureUrl.Replace("http://externalcatalogbaseurltobereplaced",
+                                _config["ExternalCatalogBaseUrl"]),
+                                EventStartTime = eventItem.EventStartTime,
+                                EventEndTime = eventItem.EventEndTime,
+                                EventTypeId = eventItem.EventTypeId,
+                                EventCatagoryId = eventItem.EventCatagoryId,
+                                EventItemOraganizer = eventItem.EventItemOraganizer
+                            };
+                var eventItemsCount = query.LongCountAsync();
+                var events = await query
+
+                        .OrderBy(c => c.Id)
+                        .Skip(pageIndex * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                var model = new PaginatedItemsViewModel<EventItem>
+                {
+                    PageIndex = pageIndex,
+                    PageSize = events.Count,
+                    Count = eventItemsCount.Result,
+                    Data = events
+                };
+                return Ok(model);
             }
-
-
-
-            return Ok();
+                return Ok();
         }
 
         //*******************************************************************************************************************
-
-        //Re-orders events by date - oldest to newest
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<IActionResult> Dates()
-        {
-            var events = await _context.EventItems
-                .OrderBy(d => d.EventStartTime.Date)
-                .ToListAsync();
-            events = ChangePictureUrl(events);
-
-            return Ok(events);
-        }
-
+       
         //Sorts event by month
         [HttpGet]
         [Route("[action]/{month}")]
-        public async Task<IActionResult> FilterByMonth(int? month)
+        public async Task<IActionResult> FilterByMonth(int? month,
+            [FromQuery] int pageIndex = 0)
+            //[FromQuery] int pageSize = 6)
         {
             var query = (IQueryable<EventItem>)_context.EventItems;
             if (month.HasValue)
             {
                 query = query.Where(e => e.EventStartTime.Month == month);
             }
+            var eventsCount = query.LongCountAsync();
 
             var events = await query
                 .OrderBy(e => e.EventStartTime)
                 .ToListAsync();
             events = ChangePictureUrl(events);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = events.Count,
+                Count = eventsCount.Result,
+                Data = events
+            };
 
-            return Ok(events);
+            return Ok(model);
         }
 
         //filters events by specific date
         [HttpGet]
         [Route("[action]/{day}-{month}-{year}")]
-        public async Task<IActionResult> FilterByDate(int? day, int? month, int? year)
+        public async Task<IActionResult> FilterByDate(int? day, int? month, int? year,
+            [FromQuery] int pageIndex = 0)
+            //[FromQuery] int pageSize = 6)
         {
             var query = (IQueryable<EventItem>)_context.EventItems;
             if (day.HasValue && month.HasValue && year.HasValue)
@@ -264,12 +313,20 @@ namespace EventCatalogApi.Controllers
                              .Where(e => e.EventStartTime.Month == month)
                              .Where(e => e.EventStartTime.Year == year);
             }
+            var eventsCount = query.LongCountAsync();
 
             var events = await query
                 .ToListAsync();
             events = ChangePictureUrl(events);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = events.Count,
+                Count = eventsCount.Result,
+                Data = events
+            };
 
-            return Ok(events);
+            return Ok(model);
         }
 
         //*******************************************************************************************************************
@@ -282,6 +339,56 @@ namespace EventCatalogApi.Controllers
                     _config["ExternalCatalogBaseUrl"]));
             return items;
         }
+
+        //*****************************************************************************************************************
+        //By keeping Question mark beside valuetype(int), we are making valuetype as nullable.
+        //action is nothing but another name for method.
+        [HttpGet("[action]/type/{eventTypeId}/catagory/{eventCatagoryId}/address/{eventAddressId}/organizer/{eventOrganizerId}")]
+        public async Task<IActionResult> Events(
+            int? eventTypeId,
+            int? eventCatagoryId,
+            int? eventAddressId,
+            int? eventOrganizerId,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 6)
+        {
+            var query = (IQueryable<EventItem>)_context.EventItems;
+            //By default, the ablove line means selct * from catalog.
+            //Anytime we need to query the database table, we need to do it through Entity framework.
+            if (eventTypeId > 0)
+            {
+                query = query.Where(c => c.EventTypeId == eventTypeId);
+            }
+            if (eventCatagoryId >0)
+            {
+                query = query.Where(c => c.EventCatagoryId == eventCatagoryId);
+            }
+            if (eventAddressId >0)
+            {
+                query = query.Where(c => c.EventAddressId == eventAddressId);
+            }
+            if (eventOrganizerId >0)
+            {
+                query = query.Where(c => c.EventOraganizerId == eventOrganizerId);
+            }
+            var eventItemsCount = query.LongCountAsync();
+            var items = await query
+                .OrderBy(c => c.Id).Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+            items = ChangePictureUrl(items);
+            var model = new PaginatedItemsViewModel<EventItem>
+            {
+                PageIndex = pageIndex,
+                PageSize = items.Count,
+                Count = eventItemsCount.Result,
+                Data = items
+            };
+            return Ok(model);
+        }
+
+        //*****************************************************************************************************************
+
+    
+
 
     }
 }

@@ -5,35 +5,66 @@ networks:
   backend:
 
 services:
-  eventcatalog:
-    image: event/eventcatalogapi
+  myeventcatalogapi:
+    image: event/myeventcatalogapi
     build:
-      context: .\EventCatalogAPI
+      context: .\EventCatalogApi
       dockerfile: Dockerfile
     environment:
-      ExternalCatalogBaseUrl: http://localhost:7810
-      DatabaseServer: mssqlserver
-      DatabaseName: EventDB
+      ExternalCatalogBaseUrl: http://localhost:7812
+      DatabaseServer: mymssqlserver
+      DatabaseName: MyEventDB
       DatabaseUser: sa
-      DatabasePassword: P@ssword(!)
+      DatabasePassword: ProductApi(!)
     ports:
-      - "7810:80"
+      - "7812:80"
     depends_on:
-      - mssqlserver
+      - mymssqlserver
     networks:
       - frontend
       - backend
-    container_name: EventProductserver
+    container_name: MyEventProductserver
+  tokenserver:
+    build:
+      context: .\TokenServiceApi
+      dockerfile: Dockerfile
+    image: events/tokenapi
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      MvcClient: http://localhost:7813
+    ports:
+      - "7800:80"
+    container_name: mytokenserviceapi
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - mymssqlserver
 
+  webmvc:
+    image: events/webmvc
+    build:
+      context: .\WebMvc
+      dockerfile: Dockerfile
+    environment:
+      EventUrl: http://myeventcatalogapi
+      IdentityUrl: http://192.168.254.29:7800
+      CallBackUrl: http://localhost:7813
+    ports:
+      - "7813:80"
+    container_name: Mywebshop
+    networks:
+      - frontend
+    depends_on:
+      - myeventcatalogapi
 
-
-  mssqlserver:
+  mymssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"
     environment:
       ACCEPT_EULA: Y
-      SA_PASSWORD: P@ssword(!)
+      SA_PASSWORD: ProductApi(!)
     ports:
-      - "1448:1433"
-    container_name: mssqlserver
+      - "1449:1433"
+    container_name: myeventsqlserver
     networks:
       - backend
