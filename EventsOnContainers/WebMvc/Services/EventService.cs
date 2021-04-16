@@ -24,7 +24,7 @@ namespace WebMvc.Services
         }
         public async Task<IEnumerable<SelectListItem>> GetEventCatagoriesAsync()
         {
-            var eventCatagoryUri = ApiPaths.Catalog.GetAllEventCategories(_baseUrl);
+            var eventCatagoryUri = ApiPaths.Event.GetAllEventCategories(_baseUrl);
             var dataString = await _client.GetStringAsync(eventCatagoryUri);
             var items = new List<SelectListItem>
             {
@@ -50,7 +50,7 @@ namespace WebMvc.Services
 
         public async Task<IEnumerable<SelectListItem>> GetEventTypesAsync()
         {
-            var eventTypeUri = ApiPaths.Catalog.GetAllEventTypes(_baseUrl);
+            var eventTypeUri = ApiPaths.Event.GetAllEventTypes(_baseUrl);
             var dataString = await _client.GetStringAsync(eventTypeUri);
             var items = new List<SelectListItem>
             {
@@ -76,7 +76,7 @@ namespace WebMvc.Services
 
         public async Task<Event> GetEventItemsAsync(int page, int size, int? catagory, int? type, int? address, int? organizer)
         {
-            var EventItemsUri = ApiPaths.Catalog.GetAllEventItems(_baseUrl, page, size, catagory, type, address, organizer);
+            var EventItemsUri = ApiPaths.Event.GetAllEventItems(_baseUrl, page, size, catagory, type, address, organizer);
             var dataString = await _client.GetStringAsync(EventItemsUri);
             //Now we need to convert the string in to a paginated model.
             //In this service paginated is nothing but catalog class
@@ -87,7 +87,7 @@ namespace WebMvc.Services
 
         public async Task<IEnumerable<SelectListItem>> GetEventAddressesAsync()
         {
-            var eventAddressUri = ApiPaths.Catalog.GetAllEventAddresses(_baseUrl);
+            var eventAddressUri = ApiPaths.Event.GetAllEventAddresses(_baseUrl);
             var dataString = await _client.GetStringAsync(eventAddressUri);
             var items = new List<SelectListItem>
             {
@@ -113,7 +113,7 @@ namespace WebMvc.Services
 
         public async Task<IEnumerable<SelectListItem>> GetEventOrganizersAsync()
         {
-            var eventOrganizerUri = ApiPaths.Catalog.GetAllEventOrganizers(_baseUrl);
+            var eventOrganizerUri = ApiPaths.Event.GetAllEventOrganizers(_baseUrl);
             var dataString = await _client.GetStringAsync(eventOrganizerUri);
             var items = new List<SelectListItem>
             {

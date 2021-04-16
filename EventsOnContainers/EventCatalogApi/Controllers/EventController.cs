@@ -353,7 +353,7 @@ namespace EventCatalogApi.Controllers
             [FromQuery] int pageSize = 6)
         {
             var query = (IQueryable<EventItem>)_context.EventItems;
-            //By default, the ablove line means selct * from catalog.
+            //By default, the above line means select * from catalog.
             //Anytime we need to query the database table, we need to do it through Entity framework.
             if (eventTypeId > 0)
             {
