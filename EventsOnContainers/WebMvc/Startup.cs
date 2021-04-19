@@ -42,15 +42,15 @@ namespace WebMvc
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
 
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                //options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                //options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 //options.DefaultAuthenticateScheme = "Cookies";
             })
             .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
                 options.SignInScheme = "Cookies";
-                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                //options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
                 //in the below line we are telling who is the authority to issue the token, that is my identityurl
                 options.Authority = identityUrl.ToString();

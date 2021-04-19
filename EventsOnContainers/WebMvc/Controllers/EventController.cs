@@ -62,13 +62,15 @@ namespace WebMvc.Controllers
         }
 
         //below [Authorize] mean When ever someone comes to this method, First it will authorize
+
+        
         [Authorize]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 
 
-            return View(ViewData);
+            return View();
         }
     }
 }
