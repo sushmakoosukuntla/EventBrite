@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace WebMvc.Controllers
         {
             
             var itemsOnPage = 10;
-           //?? means if there is no page number is guven the default page number will be 0
+            //?? means if there is no page number is guven the default page number will be 0            
             var _event = await _service.GetEventItemsAsync(page ?? 0, itemsOnPage, catagoriesFilterApplied,
                 typesFilterApplied, addressesFilterApplied, organizersFilterApplied);   
             

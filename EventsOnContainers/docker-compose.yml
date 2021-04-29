@@ -24,11 +24,13 @@ services:
       - frontend
       - backend
     container_name: MyEventProductserver
-  tokenserver:
+
+
+  mytokenserver:
+    image: event/mytokenapi
     build:
       context: .\TokenServiceApi
       dockerfile: Dockerfile
-    image: events/tokenapi
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       MvcClient: http://localhost:7813
@@ -41,6 +43,24 @@ services:
     depends_on:
       - mymssqlserver
 
+  cart:
+    image: event/cartapi
+    build:
+      context: .\CartApi
+      dockerfile: Dockerfile
+    environment:
+      IdentityUrl: http://192.168.254.29:7800
+      ConnectionString : basket.data      
+    ports:
+      - "7830:80"
+    container_name: cartapi
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - mytokenserver
+      - basket.data
+
   webmvc:
     image: events/webmvc
     build:
@@ -50,6 +70,7 @@ services:
       EventUrl: http://myeventcatalogapi
       IdentityUrl: http://192.168.254.29:7800
       CallBackUrl: http://localhost:7813
+      CartUrl: http://cart
     ports:
       - "7813:80"
     container_name: Mywebshop
@@ -57,6 +78,8 @@ services:
       - frontend
     depends_on:
       - myeventcatalogapi
+      - mytokenserver
+      - cart
 
   mymssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"
@@ -66,5 +89,13 @@ services:
     ports:
       - "1449:1433"
     container_name: myeventsqlserver
+    networks:
+      - backend
+
+  basket.data:
+    image: redis
+    container_name: basketdata
+    ports:
+      - "7080:6379"
     networks:
       - backend

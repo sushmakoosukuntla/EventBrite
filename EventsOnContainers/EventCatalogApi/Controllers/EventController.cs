@@ -39,7 +39,7 @@ namespace EventCatalogApi.Controllers
             [FromQuery] int pageIndex = 0,
             [FromQuery] int pageSize = 6)
         {
-            var eventItemsCount = _context.EventItems.LongCountAsync();
+            var eventItemsCount = await _context.EventItems.LongCountAsync();
             //Anytime we need to query the database table, we need to do it through Entity framework.
             var items = await _context.EventItems.
                 OrderBy(c => c.EventStartTime.Date)
@@ -50,7 +50,7 @@ namespace EventCatalogApi.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = items.Count,
-                Count = eventItemsCount.Result, 
+                Count = eventItemsCount, 
                 Data = items
             };
             return Ok(model);
@@ -83,7 +83,7 @@ namespace EventCatalogApi.Controllers
                 query = query.Where(c => c.EventCatagoryId == eventCategoryId);
             }
 
-            var eventItemsCount = query.LongCountAsync();
+            var eventItemsCount = await query.LongCountAsync();
             var events = await query
 
                     .OrderBy(c => c.Id)
@@ -95,7 +95,7 @@ namespace EventCatalogApi.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = events.Count,
-                Count = eventItemsCount.Result,
+                Count = eventItemsCount,
                 Data = events
             };
             return Ok(model);            
@@ -128,7 +128,7 @@ namespace EventCatalogApi.Controllers
                 query = query.Where(c => c.EventTypeId == eventTypeId);
             }
 
-            var eventItemsCount = query.LongCountAsync();
+            var eventItemsCount = await query.LongCountAsync();
             var events = await query
 
                     .OrderBy(c => c.Id)
@@ -140,7 +140,7 @@ namespace EventCatalogApi.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = events.Count,
-                Count = eventItemsCount.Result,
+                Count = eventItemsCount,
                 Data = events
             };
 
@@ -189,7 +189,7 @@ namespace EventCatalogApi.Controllers
 
 
                 };
-                var eventItemsCount = query.LongCountAsync();
+                var eventItemsCount = await query.LongCountAsync();
                 var events = await query
 
                         .OrderBy(c => c.Id)
@@ -200,7 +200,7 @@ namespace EventCatalogApi.Controllers
                 {
                     PageIndex = pageIndex,
                     PageSize = events.Count,
-                    Count = eventItemsCount.Result,
+                    Count = eventItemsCount,
                     Data = events
                 };
                 return Ok(model);
@@ -249,7 +249,7 @@ namespace EventCatalogApi.Controllers
                                 EventCatagoryId = eventItem.EventCatagoryId,
                                 EventItemOraganizer = eventItem.EventItemOraganizer
                             };
-                var eventItemsCount = query.LongCountAsync();
+                var eventItemsCount = await query.LongCountAsync();
                 var events = await query
 
                         .OrderBy(c => c.Id)
@@ -260,7 +260,7 @@ namespace EventCatalogApi.Controllers
                 {
                     PageIndex = pageIndex,
                     PageSize = events.Count,
-                    Count = eventItemsCount.Result,
+                    Count = eventItemsCount,
                     Data = events
                 };
                 return Ok(model);
@@ -313,7 +313,7 @@ namespace EventCatalogApi.Controllers
                              .Where(e => e.EventStartTime.Month == month)
                              .Where(e => e.EventStartTime.Year == year);
             }
-            var eventsCount = query.LongCountAsync();
+            var eventsCount = await query.LongCountAsync();
 
             var events = await query
                 .ToListAsync();
@@ -322,7 +322,7 @@ namespace EventCatalogApi.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = events.Count,
-                Count = eventsCount.Result,
+                Count = eventsCount,
                 Data = events
             };
 
@@ -371,7 +371,7 @@ namespace EventCatalogApi.Controllers
             {
                 query = query.Where(c => c.EventOraganizerId == eventOrganizerId);
             }
-            var eventItemsCount = query.LongCountAsync();
+            var eventItemsCount = await query.LongCountAsync();
             var items = await query
                 .OrderBy(c => c.Id).Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
             items = ChangePictureUrl(items);
@@ -379,7 +379,7 @@ namespace EventCatalogApi.Controllers
             {
                 PageIndex = pageIndex,
                 PageSize = items.Count,
-                Count = eventItemsCount.Result,
+                Count = eventItemsCount,
                 Data = items
             };
             return Ok(model);

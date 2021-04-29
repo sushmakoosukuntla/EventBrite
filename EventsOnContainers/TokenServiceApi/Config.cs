@@ -16,6 +16,7 @@ namespace TokenServiceApi
         {
             Dictionary<string, string> urls = new Dictionary<string, string>();
 
+            //MVC, BasketApi, OrderApi are the registered users.
             urls.Add("Mvc", configuration.GetValue<string>("MvcClient"));
             urls.Add("BasketApi", configuration.GetValue<string>("BasketApiClient"));
             urls.Add("OrderApi", configuration.GetValue<string>("OrderApiClient"));
@@ -43,6 +44,8 @@ namespace TokenServiceApi
                // new IdentityResources.Email()
             };
         }
+
+        //In GetClients methods, we have all the clients who can actually request token 
         public static IEnumerable<Client> GetClients(Dictionary<string, string> clientUrls)
         {
 
@@ -50,7 +53,8 @@ namespace TokenServiceApi
             {
                 new Client
                 {
-                    ClientId = "mvc",
+                    
+                    ClientId = "mvc", //Client
                     ClientSecrets = new [] { new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.Hybrid,
 
@@ -75,7 +79,7 @@ namespace TokenServiceApi
                 },
                 new Client
                 {
-                    ClientId = "basketswaggerui",
+                    ClientId = "basketswaggerui", //Client
                     ClientName = "Basket Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true, 
@@ -91,7 +95,7 @@ namespace TokenServiceApi
                 },
                 new Client
                 {
-                    ClientId = "orderswaggerui",
+                    ClientId = "orderswaggerui", //Client
                     ClientName = "Order Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,

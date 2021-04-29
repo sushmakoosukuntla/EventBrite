@@ -7,6 +7,7 @@ namespace WebMvc.Infrastructure
 {
     public static class ApiPaths
     {
+        //This is where we have all the url's for api's
         public static class Event
         {
             public static string GetAllEventTypes(string baseUri)
@@ -43,6 +44,25 @@ namespace WebMvc.Infrastructure
                     filterQs = $"/type/{typeQs}/catagory/{catagoryQs}/address/{addressQs}/organizer/{organizerQs}";
                 } */
                 return $"{baseUri}events{filterQs}?pageIndex={page}&pageSize={take}";
+            }
+        }
+        public static class Basket
+        {
+            //baseUri is which we added in the dockercompose.yml which is http://cart
+            public static string GetBasket(String baseUri, string basketId)
+            {
+                return $"{baseUri}/{basketId}";
+            }
+
+            public static string UpdateBasket(String baseUri)
+            {
+                //The data is comming from the body, thats why there is no uri
+                return baseUri;
+            }
+
+            public static string CleanBasket(String baseUri, string basketId)
+            {
+                return $"{baseUri}/{basketId}";
             }
         }
     }
