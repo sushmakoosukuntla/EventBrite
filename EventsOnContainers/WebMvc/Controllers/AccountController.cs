@@ -38,7 +38,7 @@ namespace WebMvc.Controllers
             }
             // "Event" because UrlHelper doesn't support nameof() for controllers
             // https://github.com/aspnet/Mvc/issues/5853
-            return RedirectToAction(nameof(EventController.About), "Event");
+            return RedirectToAction(nameof(EventController.Index), "Event");
         }
 
         public async Task<IActionResult> Signout()

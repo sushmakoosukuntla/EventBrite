@@ -39,7 +39,7 @@ namespace CartApi.Controllers
             return Ok(basket);
         }
 
-        [HttpGet("{id}")] //The data will come in the url, because string id come in there
+        [HttpDelete("{id}")] //The data will come in the url, because string id come in there
         public async void Delete(string id)
         {
             await _repository.DeleteCartAsync(id);           

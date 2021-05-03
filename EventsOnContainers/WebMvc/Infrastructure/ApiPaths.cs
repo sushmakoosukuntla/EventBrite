@@ -49,7 +49,7 @@ namespace WebMvc.Infrastructure
         public static class Basket
         {
             //baseUri is which we added in the dockercompose.yml which is http://cart
-            public static string GetBasket(String baseUri, string basketId)
+            public static string GetBasket(string baseUri, string basketId)
             {
                 return $"{baseUri}/{basketId}";
             }
