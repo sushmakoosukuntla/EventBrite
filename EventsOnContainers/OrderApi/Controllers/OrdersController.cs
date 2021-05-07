@@ -53,6 +53,7 @@ namespace OrderApi.Controllers
             return Ok(orders);
         }
 
+        [Route("new")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -64,12 +65,13 @@ namespace OrderApi.Controllers
             _logger.LogInformation("Order" + order.UserName);
 
             _ordersContext.Orders.Add(order);//Adding a new row in to orders table(in to the database _orderscontext)
-            _ordersContext.OrderItems.AddRange((Order)order.OrderItems); //******************************
+            _ordersContext.OrderItems.AddRange(order.OrderItems); //******************************
             _logger.LogInformation("Order added to context");
             _logger.LogInformation("saving.....");
 
             try
             {
+                //TODO Database might not have been created
                 await _ordersContext.SaveChangesAsync();
                 return Ok(new { order.OrderId });
             }

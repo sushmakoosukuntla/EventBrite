@@ -90,7 +90,7 @@ namespace WebMvc.Services
             var eventAddressUri = ApiPaths.Event.GetAllEventAddresses(_baseUrl);
             var dataString = await _client.GetStringAsync(eventAddressUri);
             var items = new List<SelectListItem>
-            {
+            { 
                 new SelectListItem
                 {
                     Value="0",
@@ -98,9 +98,11 @@ namespace WebMvc.Services
                     Selected = true
                 }
             };
-            var addresses = JArray.Parse(dataString);
+            HashSet<string> addresses1 = new HashSet<string>();           
+            var addresses= JArray.Parse(dataString);
             foreach (var address in addresses)
             {
+                addresses1.Add(address.Value<string>("city"));
                 items.Add(
                     new SelectListItem
                     {

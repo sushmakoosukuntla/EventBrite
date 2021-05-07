@@ -69,6 +69,7 @@ namespace OrderApi
                 options.Authority = identityUrl.ToString(); //Authority comes from the identity url
                 options.RequireHttpsMetadata = false; //We are mentioning whether we need https or not
                 options.Audience = "order"; //And the client(Audience) name is order
+              
             });
         }
 

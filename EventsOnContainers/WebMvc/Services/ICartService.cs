@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebMvc.Models;
 using WebMvc.Models.CartModels;
+using WebMvc.Models.OrderModels;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WebMvc.Services
@@ -14,8 +15,11 @@ namespace WebMvc.Services
         Task<Cart> GetCart(ApplicationUser User);
         Task AddItemToCart(ApplicationUser User, CartItem product);
         Task<Cart> UpdateCart(Cart cart);//Deleting or adding a prodcut
+
         //Dictionary<String, int> quantities means for each product ID how much quantity you gonna increase
         Task<Cart> SetQuantities(ApplicationUser User, Dictionary<String, int> quantities);
+
+        Order MapCartToOrder(Cart cart);
         Task ClearCart(ApplicationUser User);
     }
 }

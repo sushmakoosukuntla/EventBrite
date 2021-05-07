@@ -34,6 +34,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       MvcClient: http://localhost:7813
+      BasketApiClient: http://localhost:7080
+      OrderApiClient: http://localhost:7840
     ports:
       - "7800:80"
     container_name: mytokenserviceapi
@@ -41,7 +43,7 @@ services:
       - backend
       - frontend
     depends_on:
-      - mymssqlserver
+      - mymssqlserver 
 
   cart:
     image: event/cartapi
@@ -78,7 +80,7 @@ services:
       DatabaseUser: sa
       DatabasePassword: ProductApi(!)
     ports:
-      - "7830:80"
+      - "7840:80"
     container_name: orderapi
     networks:
       - backend
@@ -97,6 +99,9 @@ services:
       IdentityUrl: http://192.168.254.29:7800
       CallBackUrl: http://localhost:7813
       CartUrl: http://cart
+      OrderUrl: http://order
+      StripePublicKey: pk_test_51InXkqE1lm64aojwfoCChLAglaqKkcRJaGIPsMAyXB8urT3dpkU1BNrGL30S0de5GbV7TTAg66mQk3KYyy6zUQ5d00nQsTLms5
+      StripePrivateKey: sk_test_51InXkqE1lm64aojwDJqNvjZwtdN5tcGuylgPvxutRDwdOH9V1xDbyCrmnTRvw24KXCDujMWA8HpcJZjm4qd7SOwQ00lVJYJzH9
     ports:
       - "7813:80"
     container_name: Mywebshop
@@ -106,6 +111,7 @@ services:
       - myeventcatalogapi
       - mytokenserver
       - cart
+      - order
 
   mymssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"
